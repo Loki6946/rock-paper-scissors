@@ -1,4 +1,3 @@
-const playRoundButton = document.getElementById("play-round");
 const playGameButton = document.getElementById("play-game");
 
 const rules = {
@@ -32,13 +31,13 @@ function getPlayerChoice() {
     case "scissors":
       return playerChoice;
     default:
-      alert("invalid input");
-      break;
+      return
   }
 }
 
 function playRound(playerChoice, computerChoice) {
   if (!playerChoice) {
+    alert("You didn't choose rock paper or scissors");
     return;
   }
   console.log(playerChoice + " vs " + computerChoice);
@@ -61,16 +60,16 @@ function playGame() {
   playerScore = 0;
   computerScore = 0;
   for (let i = 0; i < 5; i++) {
-    playRound(getPlayerChoice(), getComputerChoice());
+      playRound(getPlayerChoice(), getComputerChoice());
   }
-  console.log("Player score: " + playerScore);
-  console.log("Computer score: " + computerScore);
-  console.log(playerScore > computerScore ? "Player win the game" : "Computer win the game");
+  console.log("Player : " + playerScore);
+  console.log("Computer : " + computerScore);
+  if (playerScore === computerScore) {
+    console.log("Draw");
+  } else {
+    console.log(playerScore > computerScore ? "Player win the game" : "Computer win the game");
+  }
 }
-
-playRoundButton.addEventListener("click", () => {
-  playRound(getPlayerChoice(), getComputerChoice());
-})
 
 playGameButton.addEventListener("click", () => {
   playGame();
