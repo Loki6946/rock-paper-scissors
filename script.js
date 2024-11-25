@@ -30,8 +30,6 @@ function getPlayerChoice() {
     case "paper":
     case "scissors":
       return playerChoice;
-    default:
-      return
   }
 }
 
