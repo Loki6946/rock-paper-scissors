@@ -1,4 +1,8 @@
-const playGameButton = document.getElementById("play-game");
+const playGameButton = document.querySelector("#play-game");
+const button = document.querySelectorAll("#button");
+const gameHistory = document.querySelector("#game-history");
+const playerScoreDisplay = document.querySelector("#player-score");
+const computerScoreDisplay = document.querySelector("#computer-score");
 
 const rules = {
   "rock": {
@@ -23,52 +27,56 @@ function getComputerChoice() {
   return choice[Math.floor(Math.random() * choice.length)];
 }
 
-function getPlayerChoice() {
-  const playerChoice = prompt("Rock, Paper, Scissors choose").toLowerCase();
-  switch(playerChoice) {
-    case "rock":
-    case "paper":
-    case "scissors":
-      return playerChoice;
-  }
-}
-
 function playRound(playerChoice, computerChoice) {
-  if (!playerChoice) {
-    alert("You didn't choose rock paper or scissors");
-    return;
-  }
-  console.log(playerChoice + " vs " + computerChoice);
+  const faceOff = document.createElement("p");
+  const whoWins = document.createElement("p");
+  const gameContainer = document.createElement("div");
+
+  gameContainer.classList.add("card__game");
+
   switch(computerChoice) {
     case rules[playerChoice].win:
-      console.log("Player win");
+      faceOff.textContent = `${playerChoice} vs ${computerChoice}`;
+      whoWins.textContent = "player win";
       playerScore++;
       break;
     case rules[playerChoice].lose:
-      console.log("Computer win");
+      faceOff.textContent = `${playerChoice} vs ${computerChoice}`;
+      whoWins.textContent = "computer win";
       computerScore++;
       break;
     default:
-      console.log("Draw");
+      faceOff.textContent = `${playerChoice} vs ${computerChoice}`;
+      whoWins.textContent = "draw";
       break;
   }
-}
 
-function playGame() { 
-  playerScore = 0;
-  computerScore = 0;
-  for (let i = 0; i < 5; i++) {
-      playRound(getPlayerChoice(), getComputerChoice());
-  }
-  console.log("Player : " + playerScore);
-  console.log("Computer : " + computerScore);
-  if (playerScore === computerScore) {
-    console.log("Draw");
-  } else {
-    console.log(playerScore > computerScore ? "Player win the game" : "Computer win the game");
+  gameContainer.appendChild(faceOff);
+  gameContainer.appendChild(whoWins);
+  gameHistory.prepend(gameContainer);
+  playerScoreDisplay.textContent = `Player: ${playerScore}`;
+  computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+
+  if (playerScore == 5 || computerScore == 5) {
+    alert("Game over")
+    gameHistory.textContent = "";
+    playerScore = 0;
+    computerScore = 0;
+    playerScoreDisplay.textContent = `Player: ${playerScore}`;
+    computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+    button.forEach((btn) => { btn.classList.add("hide") });
+    playGameButton.classList.remove("hide")
   }
 }
 
 playGameButton.addEventListener("click", () => {
-  playGame();
+  playGameButton.classList.add("hide");
+  button.forEach((btn) => { btn.classList.remove("hide") });
+})
+
+button.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const playerChoice = e.target.textContent.toLowerCase();
+    playRound(playerChoice, getComputerChoice());
+  })
 })

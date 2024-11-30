@@ -4,22 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock paper scissors</title>
-  <style>
-    body {
-      min-height: 100vh;
-      display: grid;
-      place-content: center;
-    }
-
-    button {
-      font-size: 16px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <p>Open console and play</p>
-  <button id="play-game">Play</button>
+  <div class="card">
+    <h1 class="card__header">Rock, paper, scissors choose!</h1>
+    <div class="card__button-container" id="button-container">
+      <button class="card__button" id="play-game">Play</button>
+      <button class="card__button hide" id="button">Rock</button>
+      <button class="card__button hide" id="button">Paper</button>
+      <button class="card__button hide" id="button">Scissors</button>
+    </div>
+    <div class="card__score-container">
+      <p class="card__score" id="player-score">Player: 0</p>
+      <p class="card__score" id="computer-score">Computer: 0</p>
+    </div>
+    <div class="card__game-history" id="game-history">
+
+    </div>
+  </div>
 
   <script src="./script.js"></script>
   
