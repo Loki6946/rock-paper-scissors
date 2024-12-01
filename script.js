@@ -30,9 +30,11 @@ function getComputerChoice() {
 function playRound(playerChoice, computerChoice) {
   const faceOff = document.createElement("p");
   const whoWins = document.createElement("p");
+  const winner = document.createElement("p");
   const gameContainer = document.createElement("div");
 
   gameContainer.classList.add("card__game");
+  winner.classList.add("card__winner");
 
   switch(computerChoice) {
     case rules[playerChoice].win:
@@ -57,19 +59,27 @@ function playRound(playerChoice, computerChoice) {
   playerScoreDisplay.textContent = `Player: ${playerScore}`;
   computerScoreDisplay.textContent = `Computer: ${computerScore}`;
 
-  if (playerScore == 5 || computerScore == 5) {
-    alert("Game over")
+  if (playerScore == 5) {
     gameHistory.textContent = "";
-    playerScore = 0;
-    computerScore = 0;
-    playerScoreDisplay.textContent = `Player: ${playerScore}`;
-    computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+    winner.textContent = "Player win the game";
+    gameHistory.appendChild(winner);
+    button.forEach((btn) => { btn.classList.add("hide") });
+    playGameButton.classList.remove("hide")
+  } else if (computerScore == 5) {
+    gameHistory.textContent = "";
+    winner.textContent = "Computer win the game";
+    gameHistory.appendChild(winner);
     button.forEach((btn) => { btn.classList.add("hide") });
     playGameButton.classList.remove("hide")
   }
 }
 
 playGameButton.addEventListener("click", () => {
+  playerScore = 0;
+  computerScore = 0;
+  playerScoreDisplay.textContent = `Player: ${playerScore}`;
+  computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+  gameHistory.textContent = "";
   playGameButton.classList.add("hide");
   button.forEach((btn) => { btn.classList.remove("hide") });
 })

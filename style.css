@@ -80,3 +80,9 @@ body {
   border-radius: 6px;
   background-color: ButtonFace;
 }
+
+.card__winner {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+}
